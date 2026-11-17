@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUIT AI | Smart Recognition</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--green:#b7ff36;
+--dark:#080c09;
+--card:#111a13;
+--muted:#849087;
+}
+body{
+font-family:'Prompt',sans-serif;
+background:var(--dark);
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+body:before{
+content:"";
+position:fixed;
+width:600px;height:600px;
+background:#6aff1612;
+filter:blur(120px);
+top:10%;left:-200px;
+z-index:-1;
+}
+nav{
+height:85px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 8%;
+border-bottom:1px solid #ffffff12;
+}
+.logo{font-size:24px;font-weight:800;letter-spacing:2px}
+.logo span{color:var(--green)}
+.nav-tag{
+color:var(--green);
+border:1px solid #b7ff3650;
+padding:8px 18px;border-radius:30px;
+font-size:12px;
+}
+.hero{
+text-align:center;
+padding:75px 20px 35px;
+}
+.hero small{
+color:var(--green);
+letter-spacing:5px;font-size:12px;
+}
+.hero h1{
+font-size:clamp(38px,7vw,76px);
+font-weight:800;
+line-height:1.3;
+margin:18px 0;
+}
+.hero h1 span{
+color:var(--green);
+text-shadow:0 0 35px #b7ff3660;
+}
+.hero p{color:var(--muted);font-size:15px}
+.main{
+max-width:1050px;
+margin:35px auto 80px;
+padding:0 20px;
+}
+.panel{
+background:linear-gradient(145deg,#162019,#0d130f);
+border:1px solid #b7ff3625;
+border-radius:25px;
+padding:35px;
+box-shadow:0 20px 80px #0008;
+}
+.panel-title{
+display:flex;justify-content:space-between;
+align-items:center;margin-bottom:25px;
+}
+.panel-title h2{font-size:20px}
+.status{color:var(--green);font-size:12px}
+.upload{
+border:2px dashed #b7ff3650;
+border-radius:20px;
+min-height:290px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+cursor:pointer;
+transition:.3s;
+position:relative;
+overflow:hidden;
+}
+.upload:hover{
+border-color:var(--green);
+background:#b7ff3609;
+transform:translateY(-3px);
+}
+.upload .symbol{
+font-size:55px;
+margin-bottom:15px;
+filter:drop-shadow(0 0 15px #b7ff36);
+}
+.upload h3{font-size:19px}
+.upload p{color:var(--muted);font-size:13px;margin-top:8px}
+#preview{
+max-width:100%;
+max-height:260px;
+object-fit:contain;
+border-radius:15px;
+display:none;
+}
+#file{display:none}
+.btn{
+background:var(--green);
+border:0;
+padding:15px 35px;
+border-radius:12px;
+font-family:inherit;
+font-weight:700;
+font-size:15px;
+cursor:pointer;
+color:#10170b;
+transition:.3s;
+}
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 0 30px #b7ff3670;
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{
+display:flex;justify-content:center;
+gap:12px;margin-top:25px;flex-wrap:wrap;
+}
+.secondary{
+background:#ffffff0b;
+color:white;
+border:1px solid #ffffff20;
+}
+.result{
+margin-top:30px;
+padding:25px;
+border-radius:18px;
+background:#080e0a;
+border:1px solid #b7ff3630;
+display:none;
+}
+.result h3{color:var(--green);margin-bottom:18px}
+.result-name{
+font-size:32px;font-weight:700;
+margin-bottom:15px;
+}
+.bar{
+height:9px;
+background:#ffffff15;
+border-radius:20px;
+overflow:hidden;margin:10px 0 20px;
+}
+.bar-fill{
+height:100%;width:0;
+background:var(--green);
+border-radius:20px;
+transition:1s;
+}
+.info{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;margin-top:30px;
+}
+.info-card{
+background:#ffffff08;
+border:1px solid #ffffff10;
+padding:22px;border-radius:17px;
+}
+.info-card .icon{font-size:27px}
+.info-card h4{margin:12px 0 5px;font-size:15px}
+.info-card p{font-size:12px;color:var(--muted)}
+footer{
+text-align:center;
+border-top:1px solid #ffffff12;
+padding:30px;color:var(--muted);
+font-size:12px;
+}
+@media(max-width:600px){
+nav{padding:0 5%;height:70px}
+.hero{padding-top:55px}
+.panel{padding:20px}
+.info{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+ <div class="logo">FRUIT<span>AI.</span></div>
+ <div class="nav-tag">● AI SYSTEM ONLINE</div>
+</nav>
+
+<section class="hero">
+ <small>SMART FRUIT RECOGNITION</small>
+ <h1>DISCOVER YOUR<br><span>FRUIT WORLD.</span></h1>
+ <p>ระบบตรวจจับและจำแนกชนิดผลไม้ด้วยเทคโนโลยี AI</p>
+</section>
+
+<main class="main">
+ <section class="panel">
+  <div class="panel-title">
+   <h2>🍃 Fruit Scanner</h2>
+   <div class="status">● READY TO SCAN</div>
+  </div>
+
+  <label class="upload" for="file" id="uploadArea">
+   <div class="symbol">📸</div>
+   <h3>อัปโหลดรูปภาพผลไม้</h3>
+   <p>คลิกเพื่อเลือกรูปภาพ หรือลากรูปมาวางที่นี่</p>
+   <p>รองรับ JPG, PNG, WEBP</p>
+   <img id="preview" alt="Fruit preview">
+  </label>
+
+  <input type="file" id="file" accept="image/*">
+
+  <div class="actions">
+   <button class="btn" id="scanBtn" disabled onclick="predict()">✦ ANALYZE FRUIT</button>
+   <button class="btn secondary" onclick="reset()">RESET</button>
+  </div>
+
+  <div class="result" id="result">
+   <h3>✦ ANALYSIS RESULT</h3>
+   <div class="result-name" id="fruitName">Apple</div>
+   <p id="confidence">Confidence: 0%</p>
+   <div class="bar"><div class="bar-fill" id="bar"></div></div>
+   <div id="allResults"></div>
+  </div>
+ </section>
+
+ <section class="info">
+  <div class="info-card">
+   <div class="icon">🧠</div>
+   <h4>AI Recognition</h4>
+   <p>วิเคราะห์รูปภาพด้วย Machine Learning</p>
+  </div>
+  <div class="info-card">
+   <div class="icon">⚡</div>
+   <h4>Fast Analysis</h4>
+   <p>ประมวลผลและแสดงผลลัพธ์อย่างรวดเร็ว</p>
+  </div>
+  <div class="info-card">
+   <div class="icon">🎯</div>
+   <h4>Smart Detection</h4>
+   <p>แสดงชนิดผลไม้และค่าความมั่นใจ</p>
+  </div>
+ </section>
+</main>
+
+<footer>
+ FRUIT AI © 2026 | POWERED BY ARTIFICIAL INTELLIGENCE
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script>
+const MODEL_URL = "ใส่ลิงก์โมเดล Teachable Machine ของคุณที่นี่";
+
+let model = null;
+let imageReady = false;
+
+const fileInput = document.getElementById("file");
+const preview = document.getElementById("preview");
+const uploadArea = document.getElementById("uploadArea");
+const scanBtn = document.getElementById("scanBtn");
+
+fileInput.addEventListener("change", function(e){
+ const file = e.target.files[0];
+ if(!file) return;
+
+ if(!file.type.startsWith("image/")){
+  alert("กรุณาเลือกไฟล์รูปภาพ");
+  return;
+ }
+
+ const reader = new FileReader();
+ reader.onload = function(event){
+  preview.src = event.target.result;
+  preview.style.display = "block";
+  uploadArea.querySelector(".symbol").style.display = "none";
+  uploadArea.querySelectorAll("h3,p").forEach(el=>el.style.display="none");
+  imageReady = true;
+  scanBtn.disabled = false;
+  document.getElementById("result").style.display="none";
+ };
+ reader.readAsDataURL(file);
+});
+
+async function predict(){
+ if(!imageReady) return;
+
+ try{
+  scanBtn.disabled = true;
+  scanBtn.textContent = "ANALYZING...";
+
+  if(!model){
+   if(!MODEL_URL.startsWith("http")){
+    throw new Error("กรุณาใส่ลิงก์โมเดล Teachable Machine ก่อน");
+   }
+   model = await tmImage.load(
+    MODEL_URL + "model.json",
+    MODEL_URL + "metadata.json"
+   );
+  }
+
+  const predictions = await model.predict(preview);
+  predictions.sort((a,b)=>b.probability-a.probability);
+
+  const best = predictions[0];
+  document.getElementById("result").style.display="block";
+  document.getElementById("fruitName").textContent=best.className;
+  document.getElementById("confidence").textContent=
+   "Confidence: "+(best.probability*100).toFixed(2)+"%";
+
+  document.getElementById("bar").style.width=
+   (best.probability*100)+"%";
+
+  document.getElementById("allResults").innerHTML=
+   predictions.map(p=>`
+    <p style="margin-top:12px;font-size:13px">
+    ${escapeHTML(p.className)}
+    <span style="float:right;color:#b7ff36">
+    ${(p.probability*100).toFixed(2)}%
+    </span></p>
+   `).join("");
+
+  document.getElementById("result").scrollIntoView({
+   behavior:"smooth",block:"nearest"
+  });
+
+ }catch(err){
+  alert(err.message || "เกิดข้อผิดพลาดในการวิเคราะห์");
+ }finally{
+  scanBtn.disabled=false;
+  scanBtn.textContent="✦ ANALYZE FRUIT";
+ }
+}
+
+function escapeHTML(str){
+ return String(str).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",
+  '"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+function reset(){
+ fileInput.value="";
+ preview.src="";
+ preview.style.display="none";
+ uploadArea.querySelector(".symbol").style.display="block";
+ uploadArea.querySelectorAll("h3,p").forEach(el=>el.style.display="block");
+ document.getElementById("result").style.display="none";
+ scanBtn.disabled=true;
+ imageReady=false;
+}
+</script>
+</body>
+</html>
